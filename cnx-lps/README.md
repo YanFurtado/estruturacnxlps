@@ -36,3 +36,15 @@ Qualquer plataforma que construa a partir do `Dockerfile` (Coolify, Easypanel, R
 ## Editar
 
 Cada página é um único `index.html` em `site/<rota>/`. Fontes do Google Fonts e scripts de CDN carregam pela internet; o resto está embutido no próprio arquivo.
+
+## Deploy: um serviço por LP (Easypanel)
+
+Cada pasta em `site/<lp>/` tem seu próprio `Dockerfile` e `nginx.conf` e serve a página na raiz (`/`) do domínio do serviço.
+
+| Serviço | Caminho de build |
+|---|---|
+| branding | `/cnx-lps/site/branding` |
+| conversao | `/cnx-lps/site/conversao` |
+| comercial | `/cnx-lps/site/comercial` |
+
+Dockerfile em cada serviço: `Dockerfile` (padrão). O `Dockerfile` da raiz de `cnx-lps/` continua servindo as 3 juntas.
