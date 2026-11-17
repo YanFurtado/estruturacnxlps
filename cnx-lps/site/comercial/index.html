@@ -982,7 +982,7 @@ main #problema p.mono[data-reveal]{font-size:clamp(16px,1.6vw,19px)!important;le
       </div>
       <div class="foot-cols">
         <div><strong>Nesta página</strong><a data-pixel="Click_Rodape_Nav_Como" href="#como">Processo</a><a data-pixel="Click_Rodape_Nav_Problema" href="#problema">Diagnóstico</a><a data-pixel="Click_Rodape_Nav_Fazemos" href="#fazemos">O que fazemos</a><a data-pixel="Click_Rodape_Nav_Tecnologia" href="#tecnologia">Tecnologia</a><a data-pixel="Click_Rodape_Nav_QuemSomos" href="#quem-somos">Quem somos</a><a data-pixel="Click_Rodape_Nav_Faq" href="#faq">Dúvidas</a></div>
-        <div class="ct-min"><strong>Contato</strong><a data-pixel="Click_Rodape_WhatsApp_Link" href="https://wa.me/5587988578910?text=Ol%C3%A1%21%20Quero%20estruturar%20o%20comercial%20da%20minha%20empresa%20com%20a%20Conex%C3%A3o." target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>WhatsApp</a><a data-pixel="Click_Rodape_Instagram" href="https://www.instagram.com/conexao_assessoria/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>Instagram</a><a data-pixel="Click_Rodape_Localizacao" href="https://www.google.com/maps/search/?api=1&query=Galeria+Manhattan+Petrolina+PE" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Localização</a></div>
+        <div class="ct-min"><strong>Contato</strong><a data-pixel="Click_Rodape_WhatsApp_Link" href="https://wa.me/5587988578910?text=Ol%C3%A1%21%20Quero%20estruturar%20o%20comercial%20da%20minha%20empresa%20com%20a%20Conex%C3%A3o." target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.7A8.4 8.4 0 1 1 21 11.5z"/></svg>WhatsApp</a><a href="https://www.instagram.com/conexao_assessoria/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>Instagram</a><a data-pixel="Click_Rodape_Localizacao" href="https://www.google.com/maps/search/?api=1&query=Galeria+Manhattan+Petrolina+PE" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Localização</a></div>
         <div><strong>Institucional</strong><a data-pixel="Click_Rodape_SiteConexao" href="https://assessoriaconexao.com.br/" target="_blank" rel="noopener">assessoriaconexao.com.br</a><a data-pixel="Click_Rodape_Privacidade" href="https://assessoriaconexao.com.br/privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a><a data-pixel="Click_Rodape_Termos" href="https://assessoriaconexao.com.br/termos.html" target="_blank" rel="noopener">Termos de Uso</a></div>
       </div>
     </div>
@@ -1322,7 +1322,7 @@ img,svg,video{max-width:100%}
 }
 </style><script>document.documentElement.lang="pt-BR"</script>
 <script>
-/* Meta Pixel: cada botão/link dispara o evento do seu data-pixel (ex.: Click_Hero_WhatsApp) */
+/* Meta Pixel: Lead = WhatsApp/contato | FindLocation = mapa/localizacao | Instagram = nao rastreia */
 (function(){
   var LP='Comercial';
   function txt(el){
@@ -1333,18 +1333,25 @@ img,svg,video{max-width:100%}
     var s=el.closest('section,header,footer,nav,[id]');
     return s?(s.id||s.tagName.toLowerCase()):'pagina';
   }
+  function has(h,list){for(var i=0;i<list.length;i++){if(h.indexOf(list[i])>-1)return true}return false}
+  var last=null;
   document.addEventListener('click',function(e){
-    if(typeof fbq!=='function')return;
+    if(typeof fbq!=='function'||e===last)return;
+    last=e;
     var el=e.target.closest&&e.target.closest('a,button,[role="button"],summary,input[type="submit"],input[type="button"]');
     if(!el)return;
-    var href=el.getAttribute('href')||'';
+    var href=(el.getAttribute('href')||'').toLowerCase();
+    if(has(href,['instagram.com','instagr.am']))return;
     var nome=el.getAttribute('data-pixel')||('Click_'+secao(el)+'_Outro');
     var p={lp:LP,label:txt(el),secao:secao(el),elemento:el.tagName.toLowerCase(),href:href.slice(0,200),botao:nome};
     try{
-      if(href.indexOf('wa.me/')>-1||href.indexOf('api.whatsapp.com')>-1||href.indexOf('wa.link')>-1||href.indexOf('tel:')===0||href.indexOf('mailto:')===0){
-        fbq('track','Contact',p);
+      if(has(href,['wa.me/','api.whatsapp.com','wa.link','whatsapp://'])||href.indexOf('tel:')===0||href.indexOf('mailto:')===0){
+        fbq('track','Lead',p);
+      }else if(has(href,['google.com/maps/search','maps.app.goo.gl','waze.com','goo.gl/maps','maps.google'])){
+        fbq('track','FindLocation',p);
+      }else{
+        fbq('trackCustom',nome,p);
       }
-      fbq('trackCustom',nome,p);
     }catch(err){}
   },true);
 })();
