@@ -1326,7 +1326,7 @@ img,svg,video{max-width:100%}
 (function(){
   var LP='Comercial';
   function txt(el){
-    var t=(el.getAttribute('aria-label')||el.innerText||el.textContent||'').replace(/s+/g,' ').trim();
+    var t=(el.getAttribute('aria-label')||el.innerText||el.textContent||'').split(String.fromCharCode(10)).join(' ').replace(/ +/g,' ').trim();
     return t.slice(0,80)||el.id||el.className||'sem-texto';
   }
   function secao(el){
@@ -1341,7 +1341,7 @@ img,svg,video{max-width:100%}
     var nome=el.getAttribute('data-pixel')||('Click_'+secao(el)+'_Outro');
     var p={lp:LP,label:txt(el),secao:secao(el),elemento:el.tagName.toLowerCase(),href:href.slice(0,200),botao:nome};
     try{
-      if(/^https?://(wa.me|api.whatsapp.com|wa.link)/i.test(href)||/^(tel|mailto):/i.test(href)){
+      if(href.indexOf('wa.me/')>-1||href.indexOf('api.whatsapp.com')>-1||href.indexOf('wa.link')>-1||href.indexOf('tel:')===0||href.indexOf('mailto:')===0){
         fbq('track','Contact',p);
       }
       fbq('trackCustom',nome,p);
