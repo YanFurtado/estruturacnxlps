@@ -1564,7 +1564,7 @@ img,svg,video{max-width:100%}
     try{
       if(has(href,['wa.me/','api.whatsapp.com','wa.link','whatsapp://'])||href.indexOf('tel:')===0||href.indexOf('mailto:')===0){
         fbq('track','Lead',p);
-      }else if(has(href,['google.com/maps/search','maps.app.goo.gl','waze.com','goo.gl/maps','maps.google'])){
+      }else if(has(href,['google.com/maps/search','maps.app.goo.gl','waze.com','goo.gl/maps','maps.google','google.com/maps/place'])){
         fbq('track','FindLocation',p);
       }else{
         fbq('trackCustom',nome,p);
