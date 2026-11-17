@@ -17,6 +17,23 @@
 <meta name="twitter:image" content="https://comercial.assessoriaconexao.com.br/og-image.png">
 <meta name="twitter:title" content="CNX Comercial 3">
 <meta name="twitter:description" content="Estruturação Comercial">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1773806880366355');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1773806880366355&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -1304,5 +1321,41 @@ img,svg,video{max-width:100%}
  .foot-cols>div{align-items:center!important;text-align:center}
 }
 </style><script>document.documentElement.lang="pt-BR"</script>
+<script>
+/* Meta Pixel: rastreamento de cliques (delegado: cobre todos os links e botões) */
+(function(){
+  var LP='Comercial';
+  function txt(el){
+    var t=(el.getAttribute('aria-label')||el.innerText||el.textContent||'').replace(/s+/g,' ').trim();
+    return t.slice(0,80)||el.id||el.className||'sem-texto';
+  }
+  function secao(el){
+    var s=el.closest('section,header,footer,nav,[id]');
+    return s?(s.id||s.tagName.toLowerCase()):'pagina';
+  }
+  document.addEventListener('click',function(e){
+    if(typeof fbq!=='function')return;
+    var el=e.target.closest&&e.target.closest('a,button,[role="button"],summary,input[type="submit"],input[type="button"]');
+    if(!el)return;
+    var href=el.getAttribute('href')||'';
+    var p={lp:LP,label:txt(el),secao:secao(el),elemento:el.tagName.toLowerCase(),href:href.slice(0,200)};
+    try{
+      if(/^https?://(wa.me|api.whatsapp.com|wa.link)/i.test(href)){
+        fbq('track','Contact',p);
+        fbq('trackCustom','Click_WhatsApp',p);
+      }else if(href.charAt(0)==='#'){
+        fbq('trackCustom','Click_Navegacao',p);
+      }else if(/^https?:/i.test(href)){
+        fbq('trackCustom','Click_Link_Externo',p);
+      }else if(/^(tel|mailto):/i.test(href)){
+        fbq('track','Contact',p);
+        fbq('trackCustom','Click_Contato',p);
+      }else{
+        fbq('trackCustom','Click_Botao',p);
+      }
+    }catch(err){}
+  },true);
+})();
+</script>
 </body>
 </html>
